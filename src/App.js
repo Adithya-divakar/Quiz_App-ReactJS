@@ -1,11 +1,12 @@
 import React from 'react'
 import Calculator from './components'
+import TicTacToe from './components'
 
 
 const App = () => {
   return (
     <div>
-      <Calculator/>
+   <TicTacToe/>
     </div>
   )
 }

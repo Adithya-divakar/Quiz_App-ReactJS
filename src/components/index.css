@@ -1,30 +1,81 @@
-body {
-    text-align: center;
-    background-color: black;
-  }
+
+body{
+  justify-content: center;
+  text-align: center;
   
-  form {
-    display: inline-block;
-    margin-top: 10%;
-    border-radius: 6px;
-    box-shadow: 2px 3px 7px 6px white;
-   
-  }
-.input{
- width:90%;
- height: 7vh;
- box-shadow: 2px 2px 5px 5px white;
- border:none;
- margin-top: 15px;
- border-radius: 6px;
 }
-.parent{
-    margin-top: 45px;
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f2f2f2;
 }
-button{
-    width:70px;
-    height:7vh;
-    margin:5px;
-    border-radius: 5px;
-    background: linear-gradient(to bottom, #d4c62c, #e0fd03)
+
+.game-board {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+h1{
+  color:rgba(0,0,0,0.2);
+  font-size: 50px;
+  /* background-color: #3e8e41; */
+  text-shadow:1px 2px 4px #6ed471
+}
+
+.board-row {
+  display: flex;
+}
+
+.square {
+  background-color: white;
+  border: 1px solid black;
+  height: 60px;
+  width: 60px;
+  margin-right: -1px;
+  margin-top: -1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 36px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.square:focus {
+  outline: none;
+}
+
+.status {
+  margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.btn {
+  margin-top: 20px;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #6ee872;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 30px;
+  margin:5px
+}
+
+.btn:hover {
+  background-color: #3e8e41;
+}
+.btn-restart{
+  height: 10px;
+  margin-top:5px;
+}
+
+.btn:focus {
+  outline: none;
 }

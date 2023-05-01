@@ -1,61 +1,92 @@
-import "./index.css"
-import {Form,Button,Card} from "react-bootstrap"
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import './index.css'
 
-const Calculator = () => {
- const [result,setResult]=useState("")
+const TicTacToe = () => {
+  const [player, setPlayer] = useState('X');
+  const [board, setBoard] = useState(Array(9).fill(''));
+  const [winner, setWinner] = useState(null);
 
- const handleClick=(e)=>{
-    setResult(result.concat(e.target.name))
- }
- const clear=()=>{
-setResult("")
- }
- const calculate = () => {
-    if (result === "") {
-      alert("Please enter a value to calculate");
-    } else {
-      setResult(eval(result).toString());
+  const handleSquareClick = (index) => {
+
+    let newBoard = [...board];
+    if (winner || newBoard[index]) {
+      return;
+    }
+    newBoard[index] = player;
+    setBoard(newBoard);
+    setPlayer(player === 'X' ? 'O' : 'X');
+    checkForWinner(newBoard);
+  };
+
+  const checkForWinner = (board) => {
+    const winConditions = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+
+    for (let i = 0; i < winConditions.length; i++) {
+      const [a, b, c] = winConditions[i];
+      if (board[a] && board[a] === board[b] && board[b] === board[c]) {
+        setWinner(board[a]);
+        return;
+      }
     }
   };
-  
+
+  const renderSquare = (index) => {
+    return (
+      <button className="square btn" onClick={() => handleSquareClick(index)}>
+        {board[index]}
+      </button>
+    );
+  };
+
+  const renderStatus = () => {
+    if (winner) {
+      return `Winner: ${winner}`;
+    } else {
+      return `Next player: ${player}`;
+    }
+  };
+
+  const handleRestart = () => {
+    setPlayer('X');
+    setBoard(Array(9).fill(''));
+    setWinner(null);
+  };
+
   return (
-    <div className="container">
-<Card>
-    <Form>
-    <Form.Control type="text" className="input" value={result}/>
-    <div className="parent ">
-    <div className="row m-lg-5">
-        <Button className="col-md-4" name="7" onClick={handleClick}>7</Button>
-        <Button className="col-md-4" name="8" onClick={handleClick}>8</Button>
-        <Button className="col-md-4" name="9"  onClick={handleClick}>9</Button>
-        <Button className="col-md-4" name="/" onClick={handleClick}>/</Button>
+    <div className="game container">
+      <div className="game-board">
+      <h1> Tic Tac Toe</h1>
+        <div className="board-row">
+          {renderSquare(0)}
+          {renderSquare(1)}
+          {renderSquare(2)}
         </div>
-    <div className="row m-lg-5">
-        <Button className="col-md-4" name="4"  onClick={handleClick}>4</Button>
-        <Button className="col-md-4" name="5" onClick={handleClick}>5</Button>
-        <Button className="col-md-4" name="6" onClick={handleClick}>6</Button>
-        <Button className="col-md-4" name="*"onClick={handleClick}>*</Button>
+        <div className="board-row">
+          {renderSquare(3)}
+          {renderSquare(4)}
+          {renderSquare(5)}
         </div>
-    <div className="row p-lg-5">
-        <Button className="col-md-4" name="1" onClick={handleClick}>1</Button>
-        <Button className="col-md-4" name="2" onClick={handleClick}>2</Button>
-        <Button className="col-md-4" name="3" onClick={handleClick}>3</Button>
-        <Button className="col-md-4" name="-" onClick={handleClick}>-</Button>
+        <div className="board-row">
+          {renderSquare(6)}
+          {renderSquare(7)}
+          {renderSquare(8)}
         </div>
-    <div className="row p-lg-5">
-        <Button className="col-md-4" name="AC" onClick={clear}>AC</Button>
-        <Button className="col-md-4" name="0" onClick={handleClick}>0</Button>
-        <Button className="col-md-4" name="=" onClick={calculate}>=</Button>
-        <Button className="col-md-4" name="+" onClick={handleClick}>+</Button>
-       
-        </div>
-        </div>
-    </Form>
-    </Card>
+      </div>
+      <div className="game-info">
+        <div>{renderStatus()}</div>
+        <button className=' btn btn-restart' onClick={handleRestart}>Restart</button>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Calculator
-
+export default TicTacToe;
