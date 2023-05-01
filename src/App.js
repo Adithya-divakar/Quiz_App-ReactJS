@@ -1,11 +1,11 @@
 import React from 'react'
-import List from './components/To-do'
+import Calculator from './components'
+
 
 const App = () => {
   return (
     <div>
-      <List/>
-
+      <Calculator/>
     </div>
   )
 }

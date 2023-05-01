@@ -1,0 +1,30 @@
+body {
+    text-align: center;
+    background-color: black;
+  }
+  
+  form {
+    display: inline-block;
+    margin-top: 10%;
+    border-radius: 6px;
+    box-shadow: 2px 3px 7px 6px white;
+   
+  }
+.input{
+ width:90%;
+ height: 7vh;
+ box-shadow: 2px 2px 5px 5px white;
+ border:none;
+ margin-top: 15px;
+ border-radius: 6px;
+}
+.parent{
+    margin-top: 45px;
+}
+button{
+    width:70px;
+    height:7vh;
+    margin:5px;
+    border-radius: 5px;
+    background: linear-gradient(to bottom, #d4c62c, #e0fd03)
+}
