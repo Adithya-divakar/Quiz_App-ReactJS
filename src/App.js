@@ -1,11 +1,10 @@
 import React from 'react'
-import TicTacToe from './components'
-
+import List from './components/index'
 
 const App = () => {
   return (
     <div>
-   <TicTacToe/>
+  <List/>
     </div>
   )
 }

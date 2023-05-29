@@ -1,92 +1,80 @@
 import React, { useState } from 'react';
-import './index.css'
+import "./index.css"
+import "../../node_modules/bootstrap/dist/css/bootstrap.min.css"
+import {Button,Form}  from 'react-bootstrap'
 
-const TicTacToe = () => {
-  const [player, setPlayer] = useState('X');
-  const [board, setBoard] = useState(Array(9).fill(''));
-  const [winner, setWinner] = useState(null);
 
-  const handleSquareClick = (index) => {
+export default function List() {
+    const [items, setItems] = useState([]);
+    const [txtContent, setTxtContent] = useState('');
+    const [edit,setEdit]=useState(-1)
 
-    let newBoard = [...board];
-    if (winner || newBoard[index]) {
-      return;
-    }
-    newBoard[index] = player;
-    setBoard(newBoard);
-    setPlayer(player === 'X' ? 'O' : 'X');
-    checkForWinner(newBoard);
-  };
+    const txtChange = (e) => {
+        setTxtContent(e.target.value);
+    };
 
-  const checkForWinner = (board) => {
-    const winConditions = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6],
-    ];
-
-    for (let i = 0; i < winConditions.length; i++) {
-      const [a, b, c] = winConditions[i];
-      if (board[a] && board[a] === board[b] && board[b] === board[c]) {
-        setWinner(board[a]);
+    const addItem = (e) => {
+        e.preventDefault();
+       if(txtContent.trim()==""){
+        alert("add list")
         return;
-      }
-    }
-  };
+       }
+        else if (edit=== -1) {
+            let currentItems = [...items, txtContent];
+            setItems(currentItems);
+          } else {
+            let currentItems = [...items];
+            currentItems[edit] = txtContent;
+            setItems(currentItems);
+            setEdit(-1);
+          }
+        setTxtContent('');
+    };
 
-  const renderSquare = (index) => {
+    const removeItem = (i) => {
+        if (!window.confirm('Are you sure you want to delete this?')) {
+            return;
+        }
+        let currentItems = [...items];
+        currentItems.splice(i, 1);
+        setItems(currentItems);
+    };
+
+    const editItem =(i)=>{
+    
+            setEdit(i);
+            setTxtContent(items[i]);
+          };
+    
+
     return (
-      <button className="square btn" onClick={() => handleSquareClick(index)}>
-        {board[index]}
-      </button>
+        <div className='m-sm-0 main_div'>
+          
+            <div className='container'>
+            <div className='row'>
+            <h1 className='col-12'>To Do List</h1>
+            <Form onSubmit={addItem} className="d-flex form m-sm-0 ">
+                <input type='text' value={txtContent} className="screen m-sm-2 col-8" onChange={txtChange} />
+                <Button className="btn add m-sm-2 m-lg-2 m-md-2 col-sm-2"  type='submit' >Add</Button>
+            </Form>
+            </div>
+            <table className="m-5">
+            <tbody>
+                {items.map((content, k) => {
+                    return (
+
+                        <tr key={k} >
+                         <td  > <span className='px-sm-auto'>  {content}</span>  </td>
+                         <td > <span className='px-sm-auto'>  <Button onClick={() => removeItem(k)}>Delete</Button></span></td>
+                         <td > <span className='px-sm-auto'>   <Button onClick={() => editItem(k)}>Edit</Button></span></td>
+                            
+                         </tr> 
+                    );
+                })}
+                </tbody>
+            </table>
+        </div>
+       ~
+</div>
     );
-  };
-
-  const renderStatus = () => {
-    if (winner) {
-      return `Winner: ${winner}`;
-    } else {
-      return `Next player: ${player}`;
-    }
-  };
-
-  const handleRestart = () => {
-    setPlayer('X');
-    setBoard(Array(9).fill(''));
-    setWinner(null);
-  };
-
-  return (
-    <div className="game container">
-      <div className="game-board">
-      <h1> Tic Tac Toe</h1>
-        <div className="board-row">
-          {renderSquare(0)}
-          {renderSquare(1)}
-          {renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {renderSquare(3)}
-          {renderSquare(4)}
-          {renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {renderSquare(6)}
-          {renderSquare(7)}
-          {renderSquare(8)}
-        </div>
-      </div>
-      <div className="game-info">
-        <div>{renderStatus()}</div>
-        <button className=' btn btn-restart' onClick={handleRestart}>Restart</button>
-      </div>
-    </div>
-  );
-};
-
-export default TicTacToe;
+}
