@@ -50,7 +50,7 @@ const Quiz = () => {
 
   if (showResult) {
     return (
-      <div >
+      <div className='container-fluid'>
         <h2>Quiz Result</h2>
         <p>Your score: {score}</p>
         <button onClick={handleRestart}>Restart Quiz</button>
