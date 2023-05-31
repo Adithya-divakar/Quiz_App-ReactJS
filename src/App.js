@@ -1,10 +1,12 @@
 import React from 'react'
-import List from './components/index'
+import Quiz from './components/Quiz_App/Quiz'
 
 const App = () => {
   return (
     <div>
-  <List/>
+
+
+  <Quiz/>
     </div>
   )
 }
